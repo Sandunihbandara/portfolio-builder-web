@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import portfolioData from "../data/portfolioData";
 import profileImage from "../assets/profile.png";
 import waveVideo from "../assets/wave.mp4";
@@ -6,6 +6,14 @@ import { FaPhone } from "react-icons/fa";
 
 function HeroSection() {
   const [flipped, setFlipped] = useState(false);
+
+  useEffect(() => {
+  const interval = setInterval(() => {
+    setFlipped((prev) => !prev);
+  }, 2000); // change time here
+
+  return () => clearInterval(interval);
+}, []);
 
   const handleScrollToContact = () => {
     const section = document.getElementById("contact");

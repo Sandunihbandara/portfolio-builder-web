@@ -20,7 +20,7 @@ function AboutSection() {
 
           <div className="about-text-box">
             <h3> <span className="wave">👋</span> Hello!  </h3>
-            <h3>I am Sanduni</h3>
+            <h3 >I am Sanduni</h3>
             <p>{portfolioData.about}</p>
           </div>
         </div>
