@@ -1,13 +1,18 @@
 import portfolioData from "../data/portfolioData";
 import profileImage from "../assets/profile.png";
-import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 
 function HeroSection() {
+  const handleScrollToContact = () => {
+    const section = document.getElementById("contact");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section className="hero-section glass-card">
       <div className="hero-text">
         <h1>{portfolioData.name}</h1>
-    
         <h2>{portfolioData.role}</h2>
         <p>{portfolioData.intro}</p>
 
@@ -16,10 +21,9 @@ function HeroSection() {
           <p>{portfolioData.contactText}</p>
 
           <div className="hero-actions">
-            <button className="primary-btn">Contact Me</button>
-            <button className="icon-btn"><FaGithub /></button>
-            <button className="icon-btn"><FaLinkedin /></button>
-            <button className="icon-btn"><FaEnvelope /></button>
+            <button className="primary-btn" onClick={handleScrollToContact}><p>
+              Contact Me </p>
+            </button>
           </div>
         </div>
       </div>
