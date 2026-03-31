@@ -10,10 +10,9 @@
 body {
   font-family: 'Poppins', sans-serif;
   background:
-    radial-gradient(circle at 20% 20%, rgba(180, 80, 255, 0.25), transparent 25%),
-    radial-gradient(circle at 80% 10%, rgba(255, 120, 220, 0.18), transparent 20%),
-    radial-gradient(circle at 50% 80%, rgba(160, 90, 255, 0.18), transparent 25%),
-    linear-gradient(135deg, #12051f, #2a0d45, #14041f);
+    radial-gradient(circle at top left, rgba(149, 76, 233, 0.18), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.14), transparent 28%),
+    linear-gradient(135deg, #0f0618, #1c0b2e, #12051f);
   color: white;
   min-height: 100vh;
   button,
@@ -23,9 +22,11 @@ body {
     }
   }
 
+
 .app-layout {
   display: flex;
   min-height: 100vh;
+  position: relative;
 }
 
 .sidebar {
@@ -105,6 +106,8 @@ body {
   padding: 40px 15px;
   max-width: 1400px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .glass-card {
@@ -126,6 +129,62 @@ body {
 
 .hero-text {
   flex: 1;
+}
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-flip-card {
+  width: 440px;
+  height: 580px;
+  perspective: 1200px;
+  cursor: pointer;
+}
+
+.hero-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s ease;
+  transform-style: preserve-3d;
+}
+
+.hero-flip-card.flipped .hero-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.hero-face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.hero-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 28px;
+}
+
+.hero-back {
+  transform: rotateY(180deg);
+  /* background: linear-gradient(135deg, #661e70, #2a133f); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-wave-video {
+  width: 100%;          /* smaller size */
+  height: 100%;        /* keep ratio */
+  object-fit: contain; /* show full video */
 }
 
 .hero-text h1 {
@@ -199,14 +258,14 @@ body {
   justify-content: center;
 }
 
-.hero-image img {
+/* .hero-image img {
   width: 440px;
   height: 580px;
   border-radius: 28px;
   object-fit: cover;
   transform: scale(1.1);
   animation: heroImagePop 1.2s ease;
-}
+} */
 
 @keyframes heroImagePop {
   from {
@@ -222,6 +281,7 @@ body {
 .section-title {
   text-align: center;
   font-size: 46px;
+  color: #d2aae5;
   margin-bottom: 10px;
 }
 
@@ -251,7 +311,7 @@ body {
 .about-top {
   display: flex;
   align-items: flex-start;
-  gap: 30px;
+  gap: 1px;
 }
 
 .about-image-box {
@@ -356,25 +416,22 @@ body {
 
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(320px, 1fr));
-  
-  gap: 28px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
 }
 
 .project-flip-card {
   perspective: 1200px;
-  background: linear-gradient(135deg, #661e70, #2a133f);
-  border-radius: 24px;
+  width: 100%;
+  height: 380px; /* very important */
   cursor: pointer;
-  height: 390px;
-  
 }
 
 .project-flip-inner {
   position: relative;
   width: 100%;
   height: 100%;
-  transition: transform 0.8s;
+  transition: transform 0.7s ease;
   transform-style: preserve-3d;
 }
 
@@ -382,55 +439,71 @@ body {
   transform: rotateY(180deg);
 }
 
-.project-front,
-.project-back {
+.project-card {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  border-radius: 22px;
+  padding: 20px;
+  box-sizing: border-box;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  border-radius: 24px;
+  background: linear-gradient(135deg, #661e70, #2a133f);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 .project-front {
   z-index: 2;
 }
 
+.project-front img {
+  width: 100%;
+  max-width: 260px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin-bottom: 16px;
+}
+
+.project-front h3,
+.project-back h3 {
+  margin: 10px 0 8px;
+  text-align: center;
+}
+
+.project-front p,
+.project-back p {
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
 .project-back {
   transform: rotateY(180deg);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 18px;
-  text-align: center;
-  padding: 24px;
-}
-
-.project-card {
-  padding: 18px;
-  text-align: center;
-}
-
-.project-card img {
-  width: 100%;
-  height: 290px;
-  object-fit: cover;
-  border-radius: 20px;
-  margin-bottom: 14px;
 }
 
 .github-btn {
+  margin-top: 14px;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  background: linear-gradient(135deg, #b05cff, #e28fff);
-  color: white;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 12px;
   text-decoration: none;
-  padding: 12px 20px;
-  border-radius: 30px;
-  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.github-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(168, 85, 247, 0.35);
 }
 
 .project-card h3 {
@@ -444,6 +517,7 @@ body {
 }
 
 .skills-list {
+  background: linear-gradient(135deg, #661e70, #2a133f);
   padding: 24px;
   max-width: 800px;
   margin: 0 auto;
@@ -470,6 +544,23 @@ body {
   height: 100%;
   border-radius: 20px;
   background: linear-gradient(135deg, #b866ff, #f19cff);
+  box-shadow: 0 0 12px rgba(241, 156, 255, 0.45);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+/* ONLY animate when visible */
+.animate-skill {
+  animation: skillGrow 1.4s ease forwards;
+}
+
+@keyframes skillGrow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 .contact-grid {
@@ -479,6 +570,7 @@ body {
 }
 
 .contact-card {
+  background: linear-gradient(135deg, #661e70, #2a133f);
   padding: 24px;
   text-align: center;
 }
@@ -637,15 +729,9 @@ body {
   gap: 8px;
 }
 
-.skill-fill {
-  animation: growBar 2s ease forwards;
-}
 
-@keyframes growBar {
-  from {
-    width: 0;
-  }
-}
+
+
 
 .contact-card {
   text-decoration: none;
@@ -666,15 +752,16 @@ body {
 }
 
 .hero-text h1 {
-  font-size: 72px;
+  font-size: 45px;
   line-height: 1;
   margin-bottom: 14px;
+  font-weight: 500;
   color: #ffffff;
   animation: heroFadeUp 1s ease;
 }
 
 .hero-text h2 {
-  font-size: 34px;
+  font-size: 72px;
   font-weight: 500;
   color: #ead1ff;
   margin-bottom: 22px;
@@ -714,3 +801,375 @@ body {
   }
 }
 
+/* ICON STYLE */
+.btn-icon {
+  font-size: 18px;
+  margin-right: 10px;
+  transform: rotate(90deg) scaleX(-1);
+  animation: phoneBounce 1.5s infinite;
+}
+
+/* BUTTON ANIMATION */
+.contact-btn {
+  animation: pulseGlow 2s infinite;
+}
+
+/* PHONE ICON ANIMATION */
+@keyframes phoneBounce {
+  0% { transform: rotate(0deg) scaleX(-1); }
+  20% { transform: rotate(-15deg) scaleX(-1); }
+  40% { transform: rotate(10deg) scaleX(-1); }
+  60% { transform: rotate(-10deg) scaleX(-1); }
+  80% { transform: rotate(5deg) scaleX(-1); }
+  100% { transform: rotate(0deg) scaleX(-1); }
+}
+
+/* BUTTON GLOW EFFECT */
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0px rgba(196, 113, 237, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(196, 113, 237, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 0px rgba(196, 113, 237, 0.6);
+  }
+}
+.wave {
+  display: inline-block;
+  transform-origin: 70% 70%;
+  animation: waveAnimation 2s infinite;
+  animation-delay: 0.5s;
+}
+
+@keyframes waveAnimation {
+  0% { transform: rotate(0deg); }
+  15% { transform: rotate(15deg); }
+  30% { transform: rotate(-10deg); }
+  45% { transform: rotate(15deg); }
+  60% { transform: rotate(-5deg); }
+  75% { transform: rotate(10deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* ICON CONTAINER */
+.icon-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+/* ICON SIZE + ANIMATION */
+.contact-icon {
+  font-size: 30px; /* 🔥 increase size */
+  color: #a855f7;
+  transition: transform 0.4s ease, color 0.4s ease;
+  animation: floatIcon 2s ease-in-out infinite;
+}
+
+/* HOVER EFFECT */
+.contact-card:hover .contact-icon {
+  transform: scale(1.25) rotate(8deg);
+  color: #c084fc;
+}
+
+/* CARD HOVER (optional better UI) */
+.contact-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
+}
+
+/* FLOATING ANIMATION */
+@keyframes floatIcon {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+
+
+/* COMMON HOVER EFFECT FOR ALL CARDS */
+.hover-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
+}
+.project-card:hover {
+  box-shadow: 0 15px 40px rgba(168, 85, 247, 0.4);
+}
+
+.background-effects {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Aurora lights */
+.aurora {
+  position: absolute;
+  width: 70vw;
+  height: 70vw;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.28;
+  mix-blend-mode: screen;
+}
+
+.aurora-1 {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.9), rgba(236, 72, 153, 0.5), rgba(99, 102, 241, 0.5));
+  top: -10%;
+  left: -10%;
+  animation: auroraMove1 18s ease-in-out infinite alternate;
+}
+
+.aurora-2 {
+  background: linear-gradient(135deg, rgba(192, 132, 252, 0.85), rgba(59, 130, 246, 0.45), rgba(244, 114, 182, 0.45));
+  bottom: -15%;
+  right: -15%;
+  animation: auroraMove2 22s ease-in-out infinite alternate;
+}
+
+/* Glowing blobs */
+.bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  opacity: 0.45;
+}
+
+.blob1 {
+  width: 260px;
+  height: 260px;
+  background: rgba(168, 85, 247, 0.55);
+  top: 12%;
+  left: 12%;
+  animation: floatBlob1 10s ease-in-out infinite;
+}
+
+.blob2 {
+  width: 220px;
+  height: 220px;
+  background: rgba(236, 72, 153, 0.35);
+  top: 55%;
+  right: 10%;
+  animation: floatBlob2 12s ease-in-out infinite;
+}
+
+.blob3 {
+  width: 240px;
+  height: 240px;
+  background: rgba(129, 140, 248, 0.35);
+  bottom: 8%;
+  left: 35%;
+  animation: floatBlob3 14s ease-in-out infinite;
+}
+
+/* Rings */
+.light-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.06);
+}
+
+.ring1 {
+  width: 420px;
+  height: 420px;
+  top: 8%;
+  right: -80px;
+  animation: rotateRing 22s linear infinite;
+}
+
+.ring2 {
+  width: 300px;
+  height: 300px;
+  bottom: 10%;
+  left: -40px;
+  animation: rotateRingReverse 18s linear infinite;
+}
+
+/* Animations */
+@keyframes auroraMove1 {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  100% {
+    transform: translate(80px, 40px) scale(1.15) rotate(18deg);
+  }
+}
+
+@keyframes auroraMove2 {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  100% {
+    transform: translate(-70px, -50px) scale(1.12) rotate(-14deg);
+  }
+}
+
+@keyframes floatBlob1 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  50% {
+    transform: translateY(-25px) translateX(18px);
+  }
+}
+
+@keyframes floatBlob2 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  50% {
+    transform: translateY(20px) translateX(-20px);
+  }
+}
+
+@keyframes floatBlob3 {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+  }
+  50% {
+    transform: translateY(-18px) translateX(24px);
+  }
+}
+
+@keyframes rotateRing {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotateRingReverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+/* Floating particles */
+.floating-particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.5;
+  filter: blur(1px);
+  animation-name: floatParticle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.particle-1 {
+  width: 8px;
+  height: 8px;
+  background: rgba(192, 132, 252, 0.8);
+}
+
+.particle-2 {
+  width: 5px;
+  height: 5px;
+  background: rgba(236, 72, 153, 0.65);
+}
+
+.particle-3 {
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.particle-4 {
+  width: 6px;
+  height: 6px;
+  background: rgba(168, 85, 247, 0.75);
+}
+
+.particle-5 {
+  width: 12px;
+  height: 12px;
+  background: rgba(129, 140, 248, 0.35);
+}
+
+.particle-6 {
+  width: 4px;
+  height: 4px;
+  background: rgba(244, 114, 182, 0.7);
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(0px) translateX(0px) scale(1);
+    opacity: 0.25;
+  }
+  25% {
+    transform: translateY(-18px) translateX(10px) scale(1.1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-35px) translateX(-8px) scale(0.9);
+    opacity: 0.75;
+  }
+  75% {
+    transform: translateY(-18px) translateX(14px) scale(1.05);
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateY(0px) translateX(0px) scale(1);
+    opacity: 0.25;
+  }
+}
+
+/* Twinkling stars */
+.twinkle-star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+  pointer-events: none;
+  animation: twinkleStar ease-in-out infinite;
+}
+
+@keyframes twinkleStar {
+  0% {
+    opacity: 0.15;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.6);
+  }
+  100% {
+    opacity: 0.15;
+    transform: scale(0.8);
+  }
+}
+.background-effects {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}

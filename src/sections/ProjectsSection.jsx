@@ -16,7 +16,7 @@ function ProjectsSection() {
 
   return (
     <section className="projects-section" id="projects">
-      <br></br>
+      <br />
       <h2 className="section-title animated-title">
         <FaFolderOpen className="title-icon" /> My Creative Works
       </h2>
@@ -27,9 +27,7 @@ function ProjectsSection() {
           <div
             className={`project-flip-card ${flippedIndex === index ? "flipped" : ""}`}
             key={index}
-            onClick={() =>
-              setFlippedIndex(flippedIndex === index ? null : index)
-            }
+            onClick={() => setFlippedIndex(flippedIndex === index ? null : index)}
           >
             <div className="project-flip-inner">
               <div className="project-card project-front glass-card">

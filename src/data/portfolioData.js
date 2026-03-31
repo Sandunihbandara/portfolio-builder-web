@@ -21,7 +21,7 @@ const portfolioData = {
       "Anuradhapura Central College",
       "English Medium",
       "English-A ,ICT-A ,Maths-A ,Commerce-A ,Sinhala-A , History-A, Budhism-A  (7A)",
-      "English Lit-B ,Science-B  (2B)"
+      "English Literature-B ,Science-B  (2B)"
     ],
   },
 

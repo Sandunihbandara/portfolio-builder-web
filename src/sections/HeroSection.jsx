@@ -1,7 +1,12 @@
+import { useState } from "react";
 import portfolioData from "../data/portfolioData";
 import profileImage from "../assets/profile.png";
+import waveVideo from "../assets/wave.mp4";
+import { FaPhone } from "react-icons/fa";
 
 function HeroSection() {
+  const [flipped, setFlipped] = useState(false);
+
   const handleScrollToContact = () => {
     const section = document.getElementById("contact");
     if (section) {
@@ -17,19 +22,42 @@ function HeroSection() {
         <p>{portfolioData.intro}</p>
 
         <div className="contact-box">
-          <h3>Contact Me</h3>
+          <h3>
+            <FaPhone className="btn-icon" />
+            Contact Me
+          </h3>
           <p>{portfolioData.contactText}</p>
 
           <div className="hero-actions">
-            <button className="primary-btn" onClick={handleScrollToContact}><p>
-              Contact Me </p>
+            <button className="primary-btn" onClick={handleScrollToContact}>
+              Contact Me
             </button>
           </div>
         </div>
       </div>
 
       <div className="hero-image">
-        <img src={profileImage} alt="Sanduni" />
+        <div
+          className={`hero-flip-card ${flipped ? "flipped" : ""}`}
+          onClick={() => setFlipped(!flipped)}
+        >
+          <div className="hero-flip-inner">
+            <div className="hero-face hero-front">
+              <img src={profileImage} alt="Sanduni" />
+            </div>
+
+            <div className="hero-face hero-back">
+              <video
+                src={waveVideo}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="hero-wave-video"
+              />
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

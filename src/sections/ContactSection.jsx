@@ -1,4 +1,6 @@
 import portfolioData from "../data/portfolioData";
+import { FiPhoneCall } from "react-icons/fi";
+
 import {
   FaPhoneAlt,
   FaWhatsapp,
@@ -31,8 +33,9 @@ function ContactSection() {
   return (
     <section className="contact-section" id="contact">
       <br></br>
-      <h2 className="section-title animated-title">📞 Contact</h2>
-      <br></br>
+      <h2 className="section-title animated-title"><FiPhoneCall className="title-icon" />  Contact</h2>
+      <p className="section-subtitle">feel free to reach out anytime if you need any help ☎️</p>
+      
       <div className="contact-grid">
         {portfolioData.contacts.map((contact, index) => (
           <a
@@ -42,7 +45,7 @@ function ContactSection() {
             className="contact-card glass-card"
             key={index}
           >
-            <div>{getContactIcon(contact.title)}</div>
+            <div className="icon-box">{getContactIcon(contact.title)}</div>
             <h3>{contact.title}</h3>
             <p>{contact.value}</p>
           </a>
