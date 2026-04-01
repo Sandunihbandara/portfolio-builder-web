@@ -186,6 +186,37 @@ const handleReset = () => {
   window.location.reload();
 };
 
+const handleDownloadJSON = () => {
+  const dataStr = JSON.stringify(builderData, null, 2);
+  const blob = new Blob([dataStr], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "portfolio-data.json";
+  link.click();
+
+  URL.revokeObjectURL(url);
+};
+
+const handleLoadJSON = (e) => {
+  const file = e.target.files?.[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = (event) => {
+    try {
+      const parsedData = JSON.parse(event.target.result);
+      setBuilderData(parsedData);
+      localStorage.setItem("portfolioData", JSON.stringify(parsedData));
+    } catch (error) {
+      alert("Invalid JSON file");
+    }
+  };
+
+  reader.readAsText(file);
+};
 
 
   return (
@@ -200,13 +231,18 @@ const handleReset = () => {
           <FaHome /> Dashboard
         </button>
 
-        <button className="menu-btn" onClick={scrollToBuilderForm}>
-          <FaUserPlus /> Create Portfolio
-        </button>
 
         <button className="menu-btn" onClick={() => scrollToSection("projects")}>
           <FaFolderOpen /> My Portfolios
         </button>
+
+        <button type="button" className="generate-btn" style={{ marginTop: "20px" }} onClick={handleDownloadJSON}
+          >
+          Download Portfolio JSON
+        </button>
+        <input type="file" accept=".json" onChange={handleLoadJSON} style={{ marginTop: "10px" }}
+         />
+
 
         <button type="button" className="delete-btn" style={{ marginTop: "20px" }} onClick={handleReset}
           >
@@ -222,8 +258,13 @@ const handleReset = () => {
         </button>
       </nav>
 
+      <button className="menu-btn" onClick={scrollToBuilderForm}>
+          <FaUserPlus /> Create Portfolio
+        </button>
+
       <div className="sidebar-form-preview" id="builder-form">
-        <h3>Your Details</h3>
+        <br></br>
+        <h3>Fill Your Details to Create</h3>
 
         <input
           type="text"
@@ -333,7 +374,7 @@ const handleReset = () => {
           placeholder="O/L line 3"
         />
 
-        <h3 style={{ marginTop: "20px" }}>Projects</h3>
+
 
         <h3 style={{ marginTop: "20px" }}>Projects</h3>
 
