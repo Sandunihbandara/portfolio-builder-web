@@ -242,7 +242,7 @@ body {
   border: none;
   cursor: pointer;
   color: white;
-  background: linear-gradient(135deg, #7b2ff7, #c471ed);
+  background: linear-gradient(135deg, #761664, #774782);
 }
 
 .primary-btn {
@@ -317,7 +317,7 @@ body {
 .about-top {
   display: flex;
   align-items: flex-start;
-  gap: 1px;
+  gap: 12px;
 }
 
 .about-image-box {
@@ -337,7 +337,7 @@ body {
 
 .about-text-box {
   flex: 1;
-  padding-top: 48px;
+  padding-top: 100px;
 }
 
 .about-text-box h3 {
@@ -503,7 +503,7 @@ body {
   border-radius: 12px;
   text-decoration: none;
   color: white;
-  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -588,6 +588,7 @@ body {
 
 .contact-card p {
   color: #e6dbf6;
+  font-size: 14px;
 }
 
 @media (max-width: 1200px) {
@@ -891,6 +892,12 @@ body {
   box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
 }
 
+.skills-list:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.3);
+}
+
+
 /* FLOATING ANIMATION */
 @keyframes floatIcon {
   0% {
@@ -919,6 +926,10 @@ body {
   box-shadow: 0 15px 40px rgba(168, 85, 247, 0.4);
 }
 .about-bottom  :hover {
+  box-shadow: 0 15px 40px rgba(168, 85, 247, 0.4);
+}
+
+.contact-box:hover {
   box-shadow: 0 15px 40px rgba(168, 85, 247, 0.4);
 }
 
@@ -1181,4 +1192,33 @@ body {
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
+}
+
+.delete-btn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #661e70, #5c1425);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* hover effect */
+.delete-btn:hover {
+  background: linear-gradient(135deg, #a80024, #810a5f);
+  transform: scale(1.03);
+}
+
+/* click effect */
+.delete-btn:active {
+  transform: scale(0.97);
+}
+
+.no-about-image .about-text-box {
+  max-width: 100%;
+  padding-top: 0;
 }

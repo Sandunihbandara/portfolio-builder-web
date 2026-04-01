@@ -1,6 +1,3 @@
-import portfolioData from "../data/portfolioData";
-import { FiPhoneCall } from "react-icons/fi";
-
 import {
   FaPhoneAlt,
   FaWhatsapp,
@@ -9,8 +6,9 @@ import {
   FaGithub,
   FaVideo,
 } from "react-icons/fa";
+import { FiPhoneCall } from "react-icons/fi";
 
-function ContactSection() {
+function ContactSection({ builderData }) {
   const getContactIcon = (title) => {
     switch (title) {
       case "Call":
@@ -32,12 +30,12 @@ function ContactSection() {
 
   return (
     <section className="contact-section" id="contact">
-      <br></br>
-      <h2 className="section-title animated-title"><FiPhoneCall className="title-icon" />  Contact</h2>
-      <p className="section-subtitle">feel free to reach out anytime if you need any help ☎️</p>
-      
+      <h2 className="section-title animated-title">
+        <FiPhoneCall className="title-icon" /> Contact
+      </h2>
+
       <div className="contact-grid">
-        {portfolioData.contacts.map((contact, index) => (
+        {builderData.contacts.map((contact, index) => (
           <a
             href={contact.link}
             target="_blank"

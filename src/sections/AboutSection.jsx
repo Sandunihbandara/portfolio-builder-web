@@ -1,27 +1,26 @@
-import portfolioData from "../data/portfolioData";
-import aboutPhoto from "../assets/about-photo.png";
-import { FaUserGraduate, FaBookOpen, FaSchool } from "react-icons/fa";
-import { FiSmile } from "react-icons/fi";
 
+import { FaUserGraduate, FaBookOpen, FaSchool, FaUserCheck } from "react-icons/fa";
 
-function AboutSection() {
+function AboutSection({ builderData }) {
   return (
     <section className="about-section" id="about">
-      <br></br>
-      <h2 className="section-title animated-title"><FiSmile className="card-icon" /> About MySelf </h2>
-      <p className="section-subtitle">Who am I 🤔</p>
-      
+      <h2 className="section-title animated-title">
+        <FaUserCheck className="title-icon" /> About Me
+      </h2>
+
       <div className="about-card glass-card">
-      
-        <div className="about-top">
+        <div className={`about-top ${!builderData.aboutImage ? "no-about-image" : ""}`}>
+          {builderData.aboutImage && (
           <div className="about-image-box">
-            <img src={aboutPhoto} alt="About Sanduni" />
+          <img src={builderData.aboutImage} alt="About" />
           </div>
+          )}
 
           <div className="about-text-box">
-            <h3> <span className="wave">👋</span> Hello!  </h3>
-            <h3 >I am Sanduni</h3>
-            <p>{portfolioData.about}</p>
+            <h3>
+              Hello! <span className="wave">👋</span> I am Sanduni
+            </h3>
+            <p>{builderData.about}</p>
           </div>
         </div>
 
@@ -29,7 +28,7 @@ function AboutSection() {
           <div className="mini-card purple-mini-card">
             <h4><FaUserGraduate className="card-icon" /> Bachelor Degree</h4>
             <ul>
-              {portfolioData.education.degree.map((item, i) => (
+              {builderData.education.degree.map((item, i) => (
                 <li key={i}>{item}</li>
               ))}
             </ul>
@@ -38,7 +37,7 @@ function AboutSection() {
           <div className="mini-card purple-mini-card">
             <h4><FaBookOpen className="card-icon" /> A/L Results</h4>
             <ul>
-              {portfolioData.education.al.map((item, i) => (
+              {builderData.education.al.map((item, i) => (
                 <li key={i}>{item}</li>
               ))}
             </ul>
@@ -47,7 +46,7 @@ function AboutSection() {
           <div className="mini-card purple-mini-card">
             <h4><FaSchool className="card-icon" /> O/L Results</h4>
             <ul>
-              {portfolioData.education.ol.map((item, i) => (
+              {builderData.education.ol.map((item, i) => (
                 <li key={i}>{item}</li>
               ))}
             </ul>

@@ -1,20 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import portfolioData from "../data/portfolioData";
 import { FaReact, FaLaravel, FaPalette, FaGithub } from "react-icons/fa";
 import { SiFlutter } from "react-icons/si";
 import { FiCpu } from "react-icons/fi";
 
-function SkillsSection() {
+function SkillsSection({ builderData }) {
   const sectionRef = useRef(null);
   const [startAnimation, setStartAnimation] = useState(false);
 
-  // 👇 Detect scroll
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setStartAnimation(true);
-        }
+        setStartAnimation(entry.isIntersecting);
       },
       { threshold: 0.35 }
     );
@@ -23,11 +19,7 @@ function SkillsSection() {
       observer.observe(sectionRef.current);
     }
 
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
+    return () => observer.disconnect();
   }, []);
 
   const getSkillIcon = (name) => {
@@ -43,13 +35,12 @@ function SkillsSection() {
       case "Git & GitHub":
         return <FaGithub className="skill-icon" />;
       default:
-        return null;
+        return <FiCpu className="skill-icon" />;
     }
   };
 
   return (
     <section className="skills-section" id="skills" ref={sectionRef}>
-      <br />
       <h2 className="section-title animated-title">
         <FiCpu className="title-icon" /> My Skills
       </h2>
@@ -57,7 +48,7 @@ function SkillsSection() {
       <p className="section-subtitle">What have I Learned 🖥💡</p>
 
       <div className="skills-list glass-card">
-        {portfolioData.skills.map((skill, index) => (
+        {builderData.skills.map((skill, index) => (
           <div className="skill-item" key={index}>
             <div className="skill-top">
               <span className="skill-name-with-icon">
@@ -68,6 +59,7 @@ function SkillsSection() {
 
             <div className="skill-bar">
               <div
+                key={`${skill.name}-${startAnimation}`}
                 className={`skill-fill ${
                   startAnimation ? "animate-skill" : ""
                 }`}

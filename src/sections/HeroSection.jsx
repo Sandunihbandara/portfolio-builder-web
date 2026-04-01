@@ -1,19 +1,18 @@
 import { useState, useEffect } from "react";
 import portfolioData from "../data/portfolioData";
-import profileImage from "../assets/profile.png";
 import waveVideo from "../assets/wave.mp4";
 import { FaPhone } from "react-icons/fa";
 
-function HeroSection() {
+function HeroSection({ builderData }) {
   const [flipped, setFlipped] = useState(false);
 
   useEffect(() => {
-  const interval = setInterval(() => {
-    setFlipped((prev) => !prev);
-  }, 2000); // change time here
+    const interval = setInterval(() => {
+      setFlipped((prev) => !prev);
+    }, 4000);
 
-  return () => clearInterval(interval);
-}, []);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleScrollToContact = () => {
     const section = document.getElementById("contact");
@@ -25,9 +24,9 @@ function HeroSection() {
   return (
     <section className="hero-section glass-card">
       <div className="hero-text">
-        <h1>{portfolioData.name}</h1>
-        <h2>{portfolioData.role}</h2>
-        <p>{portfolioData.intro}</p>
+        <h1>{builderData.name}</h1>
+        <h2>{builderData.role}</h2>
+        <p>{builderData.intro}</p>
 
         <div className="contact-box">
           <h3>
@@ -51,7 +50,7 @@ function HeroSection() {
         >
           <div className="hero-flip-inner">
             <div className="hero-face hero-front">
-              <img src={profileImage} alt="Sanduni" />
+              <img src={builderData.profileImage} alt="Profile" />
             </div>
 
             <div className="hero-face hero-back">
