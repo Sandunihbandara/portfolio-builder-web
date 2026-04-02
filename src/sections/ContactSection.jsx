@@ -30,9 +30,11 @@ function ContactSection({ builderData }) {
 
   return (
     <section className="contact-section" id="contact">
+      <br></br>
       <h2 className="section-title animated-title">
         <FiPhoneCall className="title-icon" /> Contact
       </h2>
+      <p className="section-subtitle">Feel free to reach out anytime  ☎️</p>
 
       <div className="contact-grid">
         {builderData.contacts.map((contact, index) => (

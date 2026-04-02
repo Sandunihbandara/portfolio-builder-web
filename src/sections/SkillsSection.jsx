@@ -41,6 +41,7 @@ function SkillsSection({ builderData }) {
 
   return (
     <section className="skills-section" id="skills" ref={sectionRef}>
+      <br></br>
       <h2 className="section-title animated-title">
         <FiCpu className="title-icon" /> My Skills
       </h2>

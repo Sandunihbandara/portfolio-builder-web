@@ -4,9 +4,11 @@ import { FaUserGraduate, FaBookOpen, FaSchool, FaUserCheck } from "react-icons/f
 function AboutSection({ builderData }) {
   return (
     <section className="about-section" id="about">
+      <br></br>
       <h2 className="section-title animated-title">
         <FaUserCheck className="title-icon" /> About Me
       </h2>
+      <p className="section-subtitle">Who am I 🤔</p>
 
       <div className="about-card glass-card">
         <div className={`about-top ${!builderData.aboutImage ? "no-about-image" : ""}`}>
@@ -18,7 +20,7 @@ function AboutSection({ builderData }) {
 
           <div className="about-text-box">
             <h3>
-              Hello! <span className="wave">👋</span> I am Sanduni
+              Hello! <span className="wave">👋</span> Get to Know Me
             </h3>
             <p>{builderData.about}</p>
           </div>

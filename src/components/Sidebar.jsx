@@ -5,9 +5,24 @@ import {
   FaDownload,
   FaCog,
   FaTrash,
+  FaChevronDown,
 } from "react-icons/fa";
+import jsPDF from "jspdf";
+import { useState, useEffect } from "react";
+
 
 function Sidebar({ builderData, setBuilderData }) {
+
+  const [savedList, setSavedList] = useState([]);
+  const [showSavedList, setShowSavedList] = useState(false);
+
+    useEffect(() => {
+    const saved =
+    JSON.parse(localStorage.getItem("savedPortfolios")) || [];
+      setSavedList(saved);
+  }, []);
+
+
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);
     if (section) {
@@ -18,7 +33,7 @@ function Sidebar({ builderData, setBuilderData }) {
   const scrollToBuilderForm = () => {
     const form = document.getElementById("builder-form");
     if (form) {
-      form.scrollIntoView({ behavior: "smooth", block: "center" });
+      form.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
@@ -218,6 +233,145 @@ const handleLoadJSON = (e) => {
   reader.readAsText(file);
 };
 
+const handleDownloadCV = () => {
+  const doc = new jsPDF();
+
+  const pageHeight = doc.internal.pageSize.height;
+  const left = 20;
+  const maxWidth = 170;
+  let y = 20;
+
+  const checkPageBreak = (neededSpace = 10) => {
+    if (y + neededSpace > pageHeight - 20) {
+      doc.addPage();
+      y = 20;
+    }
+  };
+
+  const addSectionTitle = (title) => {
+    checkPageBreak(12);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(16);
+    doc.text(title, left, y);
+    y += 8;
+  };
+
+  const addNormalText = (text, indent = left, spacing = 6) => {
+    const lines = doc.splitTextToSize(text || "", maxWidth - (indent - left));
+    checkPageBreak(lines.length * spacing + 2);
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(11);
+    doc.text(lines, indent, y);
+    y += lines.length * spacing;
+  };
+
+  const addBulletList = (items, indent = 25) => {
+    items.forEach((item) => {
+      addNormalText(`- ${item}`, indent, 6);
+    });
+    y += 2;
+  };
+
+  // Header
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(22);
+  doc.text(builderData.name || "Your Name", left, y);
+
+  y += 10;
+  doc.setFont("helvetica", "normal");
+  doc.setFontSize(14);
+  doc.text(builderData.role || "Your Role", left, y);
+
+  y += 12;
+  addNormalText(builderData.intro || "", left, 6);
+
+  y += 6;
+  addSectionTitle("About Me");
+  addNormalText(builderData.about || "", left, 6);
+
+  y += 4;
+  addSectionTitle("Education");
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(12);
+  checkPageBreak(8);
+  doc.text("Bachelor Degree", left, y);
+  y += 7;
+  addBulletList(builderData.education.degree || []);
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(12);
+  checkPageBreak(8);
+  doc.text("A/L Results", left, y);
+  y += 7;
+  addBulletList(builderData.education.al || []);
+
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(12);
+  checkPageBreak(8);
+  doc.text("O/L Results", left, y);
+  y += 7;
+  addBulletList(builderData.education.ol || []);
+
+  addSectionTitle("Skills");
+  (builderData.skills || []).forEach((skill) => {
+    addNormalText(`- ${skill.name} (${skill.level})`, 25, 6);
+  });
+
+  y += 2;
+  addSectionTitle("Projects");
+
+  (builderData.projects || []).forEach((project) => {
+    checkPageBreak(24);
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(12);
+    doc.text(project.title || "Project", 25, y);
+    y += 7;
+
+    addNormalText(project.description || "", 25, 6);
+    addNormalText(`GitHub: ${project.github || ""}`, 25, 6);
+
+    y += 4;
+  });
+
+  addSectionTitle("Contact");
+
+  (builderData.contacts || []).forEach((contact) => {
+    addNormalText(`- ${contact.title}: ${contact.value}`, 25, 6);
+  });
+
+  doc.save("portfolio-cv.pdf");
+};
+
+const handleSavePortfolio = () => {
+  const savedPortfolios =
+    JSON.parse(localStorage.getItem("savedPortfolios")) || [];
+
+  const newPortfolio = {
+    id: Date.now(),
+    name: builderData.name || "Untitled Portfolio",
+    data: builderData,
+  };
+
+  const updated = [...savedPortfolios, newPortfolio];
+  setSavedList(updated);
+
+  localStorage.setItem("savedPortfolios", JSON.stringify(updated));
+
+  alert("Portfolio Saved!");
+};
+
+
+
+const handleDeleteSaved = (id) => {
+  const updated = savedList.filter((item) => item.id !== id);
+
+  localStorage.setItem("savedPortfolios", JSON.stringify(updated));
+  setSavedList(updated);
+};
+
+
 
   return (
     <aside className="sidebar">
@@ -231,26 +385,85 @@ const handleLoadJSON = (e) => {
           <FaHome /> Dashboard
         </button>
 
-
-        <button className="menu-btn" onClick={() => scrollToSection("projects")}>
-          <FaFolderOpen /> My Portfolios
+        <button className="menu-btn"  style={{ marginTop: "20px" }} onClick={scrollToBuilderForm}>
+          <FaUserPlus /> Create Portfolio
         </button>
+
+
+        <button
+  className="menu-btn portfolio-toggle-btn" style={{ marginTop: "-10px" }}
+  onClick={() => setShowSavedList((prev) => !prev)}
+>
+  <span className="portfolio-toggle-left">
+    <FaFolderOpen /> My Portfolios
+  </span>
+
+  <FaChevronDown
+    className={`dropdown-arrow ${showSavedList ? "open" : ""}`}
+  />
+</button>
+
+
+        {showSavedList && (
+  <div id="saved-portfolios" className="saved-dropdown">
+    {savedList.length === 0 ? (
+      <p className="saved-empty">No saved portfolios yet</p>
+    ) : (
+      savedList.map((item) => (
+        <div key={item.id} className="saved-item">
+          <p>{item.name}</p>
+
+          <div className="saved-actions">
+            <button
+              className="menu-btn small-btn"
+              onClick={() => {
+                setBuilderData(item.data);
+                setShowSavedList(false);
+              }}
+            >
+              Load
+            </button>
+
+            <button
+              className="delete-btn small-delete-btn"
+              onClick={() => handleDeleteSaved(item.id)}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      ))
+    )}
+  </div>
+)}
+              <button type="button" className="generate-btn" style={{ marginTop: "20px" }} onClick={handleSavePortfolio}
+          >
+          Save Portfolio
+        </button>
+
+
+        <button type="button" className="delete-btn" style={{ marginTop: "-10px" }} onClick={handleReset}
+          >
+          Reset Portfolio
+        </button>
+          
+
 
         <button type="button" className="generate-btn" style={{ marginTop: "20px" }} onClick={handleDownloadJSON}
           >
           Download Portfolio JSON
         </button>
-        <input type="file" accept=".json" onChange={handleLoadJSON} style={{ marginTop: "10px" }}
+        <input type="file" accept=".json" onChange={handleLoadJSON} style={{ marginTop: "-25px" }}
          />
+        
+        
 
 
-        <button type="button" className="delete-btn" style={{ marginTop: "20px" }} onClick={handleReset}
+        
+
+        <button type="button" className="generate-btn" style={{ marginTop: "-5px" }} onClick={handleDownloadCV}
           >
-          Reset Portfolio
-        </button>
-
-        <button className="menu-btn" onClick={() => scrollToSection("contact")}>
-          <FaDownload /> Download CV
+          Download My CV
         </button>
 
         <button className="menu-btn" onClick={() => scrollToSection("skills")}>
@@ -258,9 +471,7 @@ const handleLoadJSON = (e) => {
         </button>
       </nav>
 
-      <button className="menu-btn" onClick={scrollToBuilderForm}>
-          <FaUserPlus /> Create Portfolio
-        </button>
+      
 
       <div className="sidebar-form-preview" id="builder-form">
         <br></br>
@@ -311,13 +522,15 @@ const handleLoadJSON = (e) => {
         />
         <button
           type="button"
-          className="delete-btn"
+          
+          className="delete-btn-about"
           onClick={handleRemoveAboutImage}
           >
           Remove About Image
         </button>
 
         <input
+          style={{ marginTop: "25px" }}
           type="text"
           value={builderData.education.degree[0]}
           onChange={(e) => handleEducationChange("degree", 0, e.target.value)}
@@ -380,7 +593,7 @@ const handleLoadJSON = (e) => {
 
         <button
           type="button"
-          className="generate-btn"
+          className="generate-btn-add-project"
           style={{ marginBottom: "14px" }}
           onClick={handleAddProject}
         >
@@ -425,7 +638,7 @@ const handleLoadJSON = (e) => {
             />
             <button
               type="button"
-              className="delete-btn"
+              className="delete-btn-project"
               style={{ width: "100%", marginTop: "8px", justifyContent: "center" ,}}
               onClick={() => handleDeleteProject(index)}
                 >
@@ -434,12 +647,13 @@ const handleLoadJSON = (e) => {
             </button>
           </div>
         ))}
+        <br></br>
         
         <h3 style={{ marginTop: "20px" }}>Skills</h3>
 
 <button
   type="button"
-  className="generate-btn"
+  className="generate-btn-skill"
   style={{ marginBottom: "14px" }}
   onClick={handleAddSkill}
 >
@@ -468,13 +682,14 @@ const handleLoadJSON = (e) => {
 
     <button
       type="button"
-      className="delete-btn"
+      className="delete-btn-skill"
       onClick={() => handleDeleteSkill(index)}
     >
       Delete Skill
     </button>
   </div>
 ))}
+<br></br>
 
         <h3 style={{ marginTop: "20px" }}>Contact Details</h3>
 
@@ -502,9 +717,7 @@ const handleLoadJSON = (e) => {
           </div>
         ))}
 
-        <button className="generate-btn" style={{ marginTop: "10px" }}>
-          Download My CV
-        </button>
+        
       </div>
     </aside>
   );

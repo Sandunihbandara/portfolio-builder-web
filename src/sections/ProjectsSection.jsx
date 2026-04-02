@@ -6,6 +6,7 @@ function ProjectsSection({ builderData }) {
 
   return (
     <section className="projects-section" id="projects">
+      <br></br>
       <h2 className="section-title animated-title">
         <FaFolderOpen className="title-icon" /> My Creative Works
       </h2>

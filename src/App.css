@@ -12,7 +12,9 @@ body {
   background:
     radial-gradient(circle at top left, rgba(149, 76, 233, 0.18), transparent 30%),
     radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.14), transparent 28%),
-    linear-gradient(135deg, #0f0618, #1c0b2e, #12051f);
+    linear-gradient(135deg, #0f0618, #1c0b2e, #12051f),;
+    
+ 
   color: white;
   min-height: 100vh;
   button,
@@ -60,6 +62,7 @@ body {
 
 .menu-btn {
   background: rgba(255, 255, 255, 0.06);
+  background: linear-gradient(135deg, #9c61cc, #7c04b7);
   color: white;
   border: none;
   padding: 14px 16px;
@@ -95,9 +98,61 @@ body {
   border: none;
   padding: 14px;
   border-radius: 14px;
-  background: linear-gradient(135deg, #7b2ff7, #c471ed);
+  background: linear-gradient(135deg, #5851bc, #610390);
   color: white;
   font-weight: bold;
+  cursor: pointer;
+}
+
+.delete-btn-about{
+  width: 160px;
+  height: 30px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #e4410b9d, #3d043c);
+  color: white;
+  font-weight: semibold;
+  cursor: pointer;
+}
+
+.generate-btn-add-project {
+  width: 160px;
+  height: 30px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #7f4f1c, #360350);
+  color: white;
+  font-weight: semibold;
+  cursor: pointer;
+}
+.delete-btn-project{
+  width: 160px;
+  height: 30px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #7f4f1c, #360350);
+  color: white;
+  font-weight: semibold;
+  cursor: pointer;
+}
+.generate-btn-skill{
+  width: 160px;
+  height: 30px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #0d7274, #33034a);
+  color: white;
+  font-weight: semibold;
+    cursor: pointer;
+  }
+.delete-btn-skill{
+  width: 240px;
+  height: 30px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #0d7274, #33034a);
+  color: white;
+  font-weight: semibold;
   cursor: pointer;
 }
 
@@ -109,13 +164,23 @@ body {
   position: relative;
   z-index: 1;
 }
+/* DARK OVERLAY */
+.main-content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 5, 25, 0.35); /* adjust darkness here */
+  z-index: -1;
+  border-radius: 20px;
+}
 
 .glass-card {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 30px;
   backdrop-filter: blur(14px);
-  box-shadow: 7 8px 30px rgba(0,0,0,0.25);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.25);
 }
 
 .hero-section {
@@ -934,6 +999,7 @@ body {
 }
 
 .background-effects {
+  background: linear-gradient(1000deg, #1a0d1d, #1a0d1d);
   position: fixed;
   inset: 0;
   z-index: 0;
@@ -1094,6 +1160,7 @@ body {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
+  background-color: #3d043c;
   opacity: 0.5;
   filter: blur(1px);
   animation-name: floatParticle;
@@ -1102,25 +1169,25 @@ body {
 }
 
 .particle-1 {
-  width: 8px;
+  width: 15px;
   height: 8px;
   background: rgba(192, 132, 252, 0.8);
 }
 
 .particle-2 {
-  width: 5px;
+  width: 15px;
   height: 5px;
   background: rgba(236, 72, 153, 0.65);
 }
 
 .particle-3 {
-  width: 10px;
+  width: 15px;
   height: 10px;
   background: rgba(255, 255, 255, 0.45);
 }
 
 .particle-4 {
-  width: 6px;
+  width: 15px;
   height: 6px;
   background: rgba(168, 85, 247, 0.75);
 }
@@ -1132,7 +1199,7 @@ body {
 }
 
 .particle-6 {
-  width: 4px;
+  width: 25px;
   height: 4px;
   background: rgba(244, 114, 182, 0.7);
 }
@@ -1163,11 +1230,11 @@ body {
 /* Twinkling stars */
 .twinkle-star {
   position: absolute;
-  width: 3px;
-  height: 3px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+  background: rgb(135, 133, 135);
+  box-shadow: 0 0 12px rgb(255, 255, 255);
   pointer-events: none;
   animation: twinkleStar ease-in-out infinite;
 }
@@ -1200,7 +1267,7 @@ body {
   padding: 10px;
   border-radius: 10px;
   border: none;
-  background: linear-gradient(135deg, #661e70, #5c1425);
+  background: linear-gradient(135deg, #9c61cc, #7c04b7);
   color: white;
   font-weight: 600;
   cursor: pointer;
@@ -1222,3 +1289,120 @@ body {
   max-width: 100%;
   padding-top: 0;
 }
+
+.saved-dropdown {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.saved-item {
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  margin-bottom: 10px;
+}
+
+.saved-item p {
+  font-size: 14px;
+  color: white;
+  margin-bottom: 8px;
+  word-break: break-word;
+}
+
+.saved-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.small-btn {
+  flex: 1;
+  justify-content: center;
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+.small-delete-btn {
+  flex: 1;
+  padding: 8px 10px;
+  font-size: 13px;
+  margin-top: 0;
+}
+
+.saved-empty {
+  font-size: 13px;
+  color: #d6c8f0;
+  text-align: center;
+}
+
+.portfolio-toggle-btn {
+  display: flex;
+  background: linear-gradient(135deg, #9c61cc, #7c04b7);
+  justify-content: space-between;
+  align-items: center;
+}
+
+.portfolio-toggle-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dropdown-arrow {
+  font-size: 12px;
+  transition: transform 0.3s ease;
+}
+
+.dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+
+.saved-dropdown {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding: 8px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.saved-item {
+  padding: 8px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  margin-bottom: 8px;
+}
+
+.saved-item p {
+  font-size: 12px;
+  color: white;
+  margin-bottom: 6px;
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+.saved-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.small-btn {
+  flex: 1;
+  justify-content: center;
+  padding: 7px 10px;
+  font-size: 12px;
+}
+
+.small-delete-btn {
+  flex: 1;
+  padding: 7px 10px;
+  font-size: 12px;
+  margin-top: 0;
+}
+
+.saved-empty {
+  font-size: 12px;
+  color: #d6c8f0;
+  text-align: center;
+}
+
